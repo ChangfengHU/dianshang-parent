@@ -11,12 +11,7 @@
     <name>dianshang-service-product Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.dianshang.parent</groupId>
             <artifactId>dianshang-interface</artifactId>
@@ -27,8 +22,45 @@
             <artifactId>dianshang-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>dianshang-service-product</finalName>
+
+            <plugins>
+                <!-- 配置Tomcat插件 -->
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <configuration>
+                        <port>8072</port>
+                        <path>/</path>
+                    </configuration>
+                </plugin>
+            </plugins>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+
     </build>
 </project>

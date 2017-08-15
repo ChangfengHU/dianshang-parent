@@ -16,6 +16,11 @@
            <artifactId>dianshang-pojo</artifactId>
            <version>1.0-SNAPSHOT</version>
        </dependency>
+       <dependency>
+           <groupId>com.dianshang.parent</groupId>
+           <artifactId>dianshang-dao</artifactId>
+           <version>1.0-SNAPSHOT</version>
+       </dependency>
    </dependencies>
 
 </project>
