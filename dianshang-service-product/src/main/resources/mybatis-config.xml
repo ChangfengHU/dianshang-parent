@@ -4,6 +4,7 @@
 
 <configuration>
 
+
 	<settings>
 		<!-- 开启驼峰匹配 -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
@@ -13,6 +14,10 @@
 	<typeAliases>
 		<package name="com.dianshang.core.pojo" />
 	</typeAliases>
+	<plugins>
+		<!-- 自定义分页插件 -->
+		<plugin interceptor="com.dianshang.core.tools.PageHelper"></plugin>
+	</plugins>
 
 	<mappers>
 		<mapper class="com.dianshang.core.dao.TestTbDAO"/>

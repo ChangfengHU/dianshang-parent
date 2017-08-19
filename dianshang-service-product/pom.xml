@@ -30,17 +30,22 @@
     </dependencies>
     <build>
 
-            <plugins>
-                <!-- 配置Tomcat插件 -->
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <configuration>
-                        <port>8072</port>
-                        <path>/</path>
-                    </configuration>
-                </plugin>
-            </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8072</port>
+                    <path>/service-product</path>
+                    <url>http://172.93.44.150:8081//manager/text</url>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                    <update>true</update>
+                    <uriEncoding>UTF-8</uriEncoding>
+                </configuration>
+            </plugin>
+        </plugins>
 
         <resources>
             <resource>
