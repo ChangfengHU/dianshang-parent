@@ -31,10 +31,5 @@ public class CenterAction {
         return "/frame/" + pageName;
     }
 
-    // 商品
-    @RequestMapping(value = "console/product/{pageName}.do")
-    public String consoleProductShow(@PathVariable(value = "pageName") String pageName) {
-        return "/product/" + pageName;
-    }
 
 }
