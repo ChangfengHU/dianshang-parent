@@ -1,12 +1,8 @@
 package com.dianshang.core.pojo;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Table(name="bbs_product")
 public class Product implements Serializable {
@@ -40,25 +36,25 @@ public class Product implements Serializable {
      * 是否新品:0:旧品,1:新品
      */
     @Column(name = "is_new")
-    private Integer isNew;
+    private Integer isNew=1;
 
     /**
      * 是否热销:0,否 1:是
      */
     @Column(name = "is_hot")
-    private Integer isHot;
+    private Integer isHot=0;
 
     /**
      * 推荐 1推荐 0 不推荐
      */
-    @Column(name = "is_commend")
-    private Integer isCommend;
+    @Column(name = "is_commend=0")
+    private Integer isCommend=0;
 
     /**
      * 上下架:0否 1是
      */
     @Column(name = "is_show")
-    private Integer isShow;
+    private Integer isShow=0;
 
     /**
      * 商品图片集
