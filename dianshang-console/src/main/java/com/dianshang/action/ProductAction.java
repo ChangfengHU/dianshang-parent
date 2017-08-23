@@ -82,7 +82,7 @@ public class ProductAction {
         System.err.println(ids);
         System.err.println(isShow);
 
-        // 设置修改结果，（是否上架）
+        // 设置修改结果，（是否上架）1
         Product product = new Product();
         product.setIsShow(isShow);
 
