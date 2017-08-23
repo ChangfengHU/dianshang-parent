@@ -10,4 +10,5 @@ import com.github.abel533.mapper.Mapper;
  */
 public interface SkuDAO extends Mapper<Sku> {
 
+    void updateByExampleSelective(Sku sku);
 }

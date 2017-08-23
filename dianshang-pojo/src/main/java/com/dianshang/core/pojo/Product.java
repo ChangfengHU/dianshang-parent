@@ -47,7 +47,7 @@ public class Product implements Serializable {
     /**
      * 推荐 1推荐 0 不推荐
      */
-    @Column(name = "is_commend=0")
+    @Column(name = "is_commend")
     private Integer isCommend=0;
 
     /**

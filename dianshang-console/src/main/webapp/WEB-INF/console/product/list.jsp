@@ -52,7 +52,7 @@
         </script>
         <input type="submit" class="query" value="查询"/>
     </form>
-    <form id="jvForm">
+    <form id="jvForm" method="post">
         <table cellspacing="1" cellpadding="0" width="100%" border="0" class="pn-ltable">
             <thead class="pn-lthead">
             <tr>
@@ -89,7 +89,7 @@
                         <a href="#" class="pn-opt">查看</a> | <a href="#" class="pn-opt">修改</a> | <a href="#"
                                                                                                    onclick="if(!confirm('您确定删除吗？')) {return false;}"
                                                                                                    class="pn-opt">删除</a>
-                        | <a href="../sku/list.jsp" class="pn-opt">库存</a>
+                        | <a href="../sku/list.do?productId=${product.id}" class="pn-opt">库存</a>
                     </td>
                 </tr>
             </c:forEach>
@@ -129,10 +129,30 @@
 	</span>
         </div>
         <div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/><input
-                class="add" type="button" value="上架" onclick="isShow();"/><input class="del-button" type="button"
+                class="add" type="button" value="上架" onclick="isShow(1);"/><input class="del-button" type="button"
                                                                                  value="下架" onclick="isHide();"/></div>
 
     </form>
 </div>
 </body>
+<script type="text/javascript">
+    //上架
+    function isShow(flag) {
+        //请至少选择一个
+        var size = $("input[name='ids']:checked").size();
+        if (size == 0) {
+            alert("请至少选择一个");
+            return;
+        }
+
+        if (!confirm("你确定要操作吗")) {
+            return;
+        }
+        //提交 Form表单
+        $("#jvForm").attr("action", "isShow.do?isShow=" + flag);
+        $("#jvForm").attr("method", "post");
+        $("#jvForm").submit();
+
+    }
+</script>
 </html>

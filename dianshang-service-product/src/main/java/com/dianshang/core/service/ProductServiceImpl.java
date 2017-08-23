@@ -11,6 +11,7 @@ import com.github.abel533.entity.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +96,6 @@ public class ProductServiceImpl implements ProductService {
           // TODO: 2017/8/20 0020 此处可能出现空指针异常
             String[] colors = product.getColors().split(",");
             String[] sizes = product.getSizes().split(",");
-
             for (String color : colors) {
                 for (String size : sizes) {
                     Sku sku = new Sku();
@@ -108,10 +108,28 @@ public class ProductServiceImpl implements ProductService {
                     sku.setStock(0);
                     sku.setUpperLimit(100);
                     sku.setCreateTime(new Date());
-
                     skuDAO.insert(sku);
                 }
             }
         }
+
+    @Override
+    public void update(Product product, String ids) {
+        Example example = new Example(Product.class);
+
+        // 将ids的字符串转成list集合
+        List arrayList = new ArrayList();
+        String[] split = ids.split(",");
+        for (String string : split) {
+            arrayList.add(string);
+        }
+
+        // 设置批量修改的id条件
+        example.createCriteria().andIn("id", arrayList);
+
+        // 进行批量，选择性的非空属性修改
+        productDAO.updateByExampleSelective(product, example);
+
+    }
 
 }

@@ -39,4 +39,9 @@ public interface ProductService {
  	 *  @param product
 	 */
  public void add(Product product);
+	/**
+	 * 批量修改商品统一信息
+	 * @param product
+	 */
+	public void update(Product product,String ids);
 }
