@@ -124,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
             arrayList.add(string);
         }
 
-        // 设置批量修改的id条件
+        // 设置批量修改的id条件1
         example.createCriteria().andIn("id", arrayList);
 
         // 进行批量，选择性的非空属性修改
