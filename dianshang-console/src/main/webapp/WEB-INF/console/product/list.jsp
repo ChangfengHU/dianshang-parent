@@ -129,8 +129,7 @@
 	</span>
         </div>
         <div style="margin-top:15px;"><input class="del-button" type="button" value="删除" onclick="optDelete();"/><input
-                class="add" type="button" value="上架" onclick="isShow(1);"/><input class="del-button" type="button"
-                                                                                 value="下架" onclick="isHide();"/></div>
+                class="add" type="button" value="上架" onclick="isShow(1);"/><input class="del-button" type="button" value="下架" onclick="isShow(0);"/></div>
 
     </form>
 </div>

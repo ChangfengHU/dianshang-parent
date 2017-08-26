@@ -8,6 +8,8 @@ import com.dianshang.core.pojo.Product;
 import com.dianshang.core.pojo.Sku;
 import com.dianshang.core.tools.PageHelper;
 import com.github.abel533.entity.Example;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     private ColorDAO colorDAO;
     @Autowired
     private SkuDAO skuDAO;
-
+    @Autowired HttpSolrServer solrServer;
     @Override
     public PageHelper.Page<Product> findByExample(Product product, Integer pageNum,
                                                   Integer pageSize) {
@@ -114,9 +116,11 @@ public class ProductServiceImpl implements ProductService {
         }
 
     @Override
-    public void update(Product product, String ids) {
+    public void update(Product product, String ids)
+            throws Exception{
+        System.err.println("product.getIsShow():"+product.getIsShow());
         Example example = new Example(Product.class);
-
+        System.err.println("商品上架:"+ids);
         // 将ids的字符串转成list集合
         List arrayList = new ArrayList();
         String[] split = ids.split(",");
@@ -124,12 +128,76 @@ public class ProductServiceImpl implements ProductService {
             arrayList.add(string);
         }
 
-        // 设置批量修改的id条件11
+        // 设置批量修改的id条件
         example.createCriteria().andIn("id", arrayList);
 
-        // 进行批量，选择性的非空属性修改
+        // 进行批量，选择性属性修改
         productDAO.updateByExampleSelective(product, example);
+
+        // 如果是商品上架，将商品信息添加到solr服务器中
+        // 需要保存的信息有：商品id、商品名称、图片地址、售价、品牌id、上架时间（可选）
+        System.err.println("product.getIsShow()="+product.getIsShow());
+        if (product.getIsShow() == 1) {
+
+            System.err.println("进入添加solr库");
+            // 将数组转为集合给下面用
+            List<Object> al = new ArrayList<Object>();
+            for (String id : split) {
+                al.add(id);
+            }
+            // 根据ids查询这些商品的信息
+            System.err.println("al"+al);
+            Example example1 = new Example(Product.class);
+            example1.createCriteria().andIn("id", al);
+            List<Product> products = productDAO.selectByExample(example1);
+            // 遍历查询出来的商品集合
+            System.err.println("开始添加到solr中数量"+products.size());
+            for (Product product2 : products) {
+                System.err.println("开始添加到solr中"+product2);
+                // 将商品的各个信息，添加到文档对象中
+
+                SolrInputDocument document = new SolrInputDocument();
+
+                // id
+                document.addField("id", String.valueOf(product2.getId()));
+                // name
+                document.addField("name_ik", product2.getName());
+                // brandId
+                document.addField("brandId", product2.getBrandId());
+
+                // 商品首张图片
+                String url = product2.getImgUrl().split(",")[0];
+                document.addField("url", url);
+
+                // 该商品旗下的所有库存的最低价格
+                // SELECT * FROM bbs_sku WHERE product_id = 438 ORDER BY price
+                // ASC LIMIT 0,1;
+                Example example2 = new Example(Sku.class);
+
+                // =
+                example2.createCriteria().andEqualTo("productId",
+                        product2.getId());
+                System.err.println("product2.getId()"+product2.getId());
+                // 排序
+                example2.setOrderByClause("price asc");
+
+                // limit
+                PageHelper.startPage(1, 1);
+                skuDAO.selectByExample(example2);
+                PageHelper.Page<Sku> endPage = PageHelper.endPage();
+                System.err.println("endPage"+endPage.getResult().size());
+                if(endPage.getResult().size()>0){
+                    Sku sku = endPage.getResult().get(0);
+                    document.addField("price", sku.getPrice());
+                }
+
+
+                solrServer.add(document);
+                System.err.println("开始添加到solr中结束"+9999);
+            }
+            solrServer.commit();
+        }
+    }
 
     }
 
-}

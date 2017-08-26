@@ -43,5 +43,5 @@ public interface ProductService {
 	 * 批量修改商品统一信息
 	 * @param product
 	 */
-	public void update(Product product,String ids);
+	public void update(Product product,String ids) throws Exception;
 }

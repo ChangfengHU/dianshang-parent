@@ -78,7 +78,7 @@ public class ProductAction {
     }
     // 商品上架下架 isShow=1表示上架，=0表示下架
     @RequestMapping(value = "console/product/isShow.do")
-    public String consoleProductDoIsShow(String ids, Integer isShow) {
+    public String consoleProductDoIsShow(String ids, Integer isShow) throws Exception {
         System.err.println(ids);
         System.err.println(isShow);
 
