@@ -200,13 +200,16 @@
 		<div class="ml-wrap">
 			<div id="J_filter" class="filter">
 				<div class="f-line top">
-					<div class="f-sort"><a href="javascript:;" class="curr">综合排序<i></i></a><a href="javascript:;" class="">销量<i></i></a><a href="javascript:;" class="">价格<i></i></a><a href="javascript:;" class="" >评论数<i></i></a><a href="javascript:;" class="">新品<i></i></a></div>
+					<div class="f-sort"><a href="javascript:;" class="curr">综合排序<i></i></a><a href="javascript:;" class="">销量<i></i></a><a href="javascript:serachKeyword('${empty sort ? 'price asc' : ''}${ sort}');" class="">价格<i></i></a><a href="javascript:;" class="" >评论数<i></i></a><a href="javascript:;" class="">新品<i></i></a></div>
 					<div class="f-search">
 						<input type="text" value="在结果中搜索" class="input-txt">
 						<a data-type="all" data-field="exp_key" class="btn btn-default" data-url="search?keyword=%E7%91%9C%E4%BC%BD%E6%9C%8D&amp;enc=utf-8&amp;qrst=1&amp;rt=1&amp;stop=1&amp;vt=2&amp;exp_key=" href="javascript:;">确定</a>
 					</div>
-					<div id="J_topPage" class="f-pager"><span class="fp-text"><b>1</b><em>/</em><i>100</i></span><a class="fp-prev disabled" href="javascript:;">&lt;</a><a class="fp-next" onclick="SEARCH.page(3)" href="javascript:;" title="使用方向键右键也可翻到下一页哦！">&gt;</a></div>
-					<div class="f-result-sum">共<span id="J_resCount" class="num">5.6万</span>件商品</div>
+					<div id="J_topPage" class="f-pager"><span class="fp-text"><b>${pageSuperPojos.pageNum}</b><em>/</em><i>${pageSuperPojos.total}</i></span>
+						<a class="fp-prev disabled"  onclick="serachKeyword('${sort2}',${pageSuperPojos.pageNum-1});">&lt;</a>
+
+						<a class="fp-next" onclick="serachKeyword('${sort2}',${pageSuperPojos.pageNum+1});" title="使用方向键右键也可翻到下一页哦！">&gt;</a></div>
+					<div class="f-result-sum">共<span id="J_resCount" class="num">${pageSuperPojos.total}</span>件商品</div>
 					<span class="clr"></span>
 				</div>
 				<div class="f-line">
@@ -235,7 +238,7 @@
 			</div>
 <div id="J_goodsList" class="goods-list-v1 gl-type-1 J-goods-list">
 	<ul class="gl-warp clearfix" data-tpl="1">
-		<c:forEach items="${SuperPojos }" var="product">
+		<c:forEach items="${pageSuperPojos.result }" var="product">
 		<li data-sku="1711416562" class="gl-item">
 			<div class="gl-i-wrap">
 				<div class="p-img">
@@ -255,7 +258,7 @@
 				<div class="p-price">
 					<strong class="J_1711416562">
 						<em>￥</em><i>${product.price }</i>
-					</strong>						
+					</strong>
 					<div class="p-icons" id="J_pro_1711416562">
 						<i class="icons" title="购买本商品送赠品">赠品</i>
 						<i class="goods-icons-s1" title="该商品支持货到付款">货到付款</i>
@@ -286,7 +289,7 @@
 			${page }
 		</c:forEach>
 	</div>
-</div>		
+</div>
 </div>
 </div>
 	<div class="m-aside">
@@ -299,10 +302,10 @@
 				<div class="mt"><h3>精品推荐</h3></div>
 				<div class="mc">
 					<ul class="clearfix">
-						<li>  
-							<div class="p-img">      
+						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/ad3.jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/ad3.jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -310,22 +313,22 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						<li>  
-							<div class="p-img">      
+						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/ad2.jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/ad2.jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -333,22 +336,22 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						<li>  
-							<div class="p-img">      
+						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/55237eb5Ndf2c9fcf(1).jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/55237eb5Ndf2c9fcf(1).jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -356,22 +359,22 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						 						<li>  
-							<div class="p-img">      
+						 						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/ad4.jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/ad4.jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -379,22 +382,22 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						 						<li>  
-							<div class="p-img">      
+						 						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/ad2.jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/ad2.jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -402,22 +405,22 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						 						<li>  
-							<div class="p-img">      
+						 						<li>
+							<div class="p-img">
 								<a  href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L" style="position: relative;">
-						     		<img width="160" height="160" data-img="1" src="/images/ad1.jpg" class="err-product">      
+						     		<img width="160" height="160" data-img="1" src="/images/ad1.jpg" class="err-product">
 						     		<div id="gwd_float_curve_trigger" class="gwd_float_curve_trigger gwd_float_curve_up" style="left: 40px; top: 49px;">
 						     		<div class="gwd_float_curve_wrapper">
 						     		<span class="gwd_float_curve_trigger_icon" style="background-image:url(chrome-extension://dobbgecnokkloebjbcnjpgcopegjabpa/images/background_new.png)"></span>
@@ -425,19 +428,19 @@
 						     		<div class="gwd_float_curve_overlay"></div>
 						     		</div>
 						     		</div>
-						     	</a>  
-						     </div>  
-						     <div class="p-price">      
+						     	</a>
+						     </div>
+						     <div class="p-price">
 						     	<span>特价：</span>
-						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>  
-						     </div>  
-						     <div class="p-name">      
-						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">          
-						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>      
-						     </a>  
+						     	<strong><em>¥</em><i class="J-rec-p-1030027896">148.00</i></strong>
+						     </div>
+						     <div class="p-name">
+						     <a target="_blank" href="javascript:;" title="依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L">
+						     	<em>依琦莲新款瑜伽服套装 宽松大码女士瑜珈舞蹈服 健身服跳操服 8505长袖黑+红花裤子 L</em>
+						     </a>
 						     </div>
 						 </li>
-						 
+
 					</ul>
 				</div>
 		</div>

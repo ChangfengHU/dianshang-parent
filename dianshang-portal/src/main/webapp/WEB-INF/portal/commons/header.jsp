@@ -4,8 +4,8 @@
 <script type="text/javascript" src="/js/jquery-1.6.4.js"></script>
 <script type="text/javascript">
 //搜索
-function serachKeyword(){
-	window.location.href = "/search?keyword=" + $("#keyword").val();
+function serachKeyword(sort,pageNum){
+	window.location.href = "/search?keyword=" + $("#keyword").val()+"&sort="+sort+"&pageNum="+pageNum+"&pageSize=6";
 }
 </script>
 <!--shortcut start-->
@@ -23,8 +23,8 @@ function serachKeyword(){
 				<ul id="shelper" class="hide">
 				</ul>
 				<div class="form">
-					<input type="text" class="text" id="keyword" value="2016">
-					<input type="button" value="搜索123" class="button" onclick="serachKeyword()" >
+					<input type="text" class="text" id="keyword" value="${empty keyword ? 2016 : ''}${ keyword}"  >
+					<input type="button" value="搜索123" class="button" onclick="serachKeyword('${sort2}',1)" >
 				</div>
 			</div>
 			<div id="hotwords"></div>

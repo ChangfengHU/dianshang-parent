@@ -1,6 +1,7 @@
 package com.dianshang.core.service;
 
 import com.dianshang.core.pojo.SuperPojo;
+import com.dianshang.core.tools.MyPage;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -30,13 +31,29 @@ public class SolrServiceImpl implements SolrService {
 
     @Autowired
     private SolrServer solrServer;
+
     @Override
-    public List<SuperPojo> findProductByKeyWord(String keyword) throws SolrServerException {
-        System.err.println("进入查询索引库服务类:"+keyword);
+    public MyPage<SuperPojo> findProductByKeyWord(String keyword, String sort, Integer pageNum, Integer pageSize) throws SolrServerException {
+        System.err.println("进入查询索引库服务类123:"+keyword);
 // 设置查询条件
         SolrQuery solrQuery = new SolrQuery("name_ik:" + keyword);
         // 设置提取行数
-         solrQuery.setRows(12);
+        //分页
+        // 开始分页设置
+        MyPage<SuperPojo> page = new  MyPage(pageNum, pageSize);
+        solrQuery.setStart(page.getStartRow());
+        solrQuery.setRows(page.getPageSize());
+
+        //solrQuery.setRows(100);
+        //排序
+        // solrQuery.setSort("price", SolrQuery.ORDER.asc);
+        System.err.println("服务类sort:"+sort);
+        if (sort!=null&&!sort.equals("")&&!"undefined".equalsIgnoreCase(sort)){
+            String[] split = sort.split(" ");
+            SolrQuery.SortClause sortClause = new SolrQuery.SortClause(split[0],split[1]);
+            solrQuery.setSort(sortClause);
+        }
+
         // 设置高亮
         // 设置高亮的格式
         solrQuery.setHighlight(true);// 开启高亮
@@ -56,7 +73,7 @@ public class SolrServiceImpl implements SolrService {
 
         // 获得总数量
         long numFound = results.getNumFound();
-
+        page.setTotal(numFound);
         // 将结果集中的信息封装到商品对象中
         // 注意：由于原商品对象中并没有价格属性，而价格属性本应该是在商品对象的子对象库存对象中，
         // 而本次设计并不打算使用类似于hibernate的在pojo中做对象的相应关联，所以这里，我们可以使用万能对象来装载数据
@@ -72,7 +89,7 @@ public class SolrServiceImpl implements SolrService {
             String id = (String) solrDocument.get("id");
             superProduct.setProperty("id", id);
 
-             //商品名称
+            //商品名称
             /* String name = (String) solrDocument.get("name_ik");
              superProduct.setProperty("name", name);
 */
@@ -97,6 +114,8 @@ public class SolrServiceImpl implements SolrService {
             superProducts.add(superProduct);
         }
         System.err.println("查询索引库服务类结束:"+superProducts);
-        return superProducts;
+        page.setResult(superProducts);
+        return page;
     }
+
 }
